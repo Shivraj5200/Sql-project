@@ -98,7 +98,7 @@ select userid, count(created_date) as order_purchased, sum(price)as total_amount
 (select s.userid, s.created_date, s.product_id, g.gold_signup_date
 from sales as s
 inner join goldusers_signup as g 
-on s.userid =g.userid and created_date <= gold_signup_date)a 
+on s.userid =g.userid and created_date < gold_signup_date)a 
 inner join product b 
 on a.product_id = b.product_id)c
 group by userid
@@ -136,7 +136,5 @@ goldusers_signup b on a.userid=b.userid and created_date>=gold_signup_date and
 DATEDIFF(CREATED_DATE,Gold_signup_date)<=365)c inner join product d on c.product_id=d.product_id;
 
 
-#Rank all transactions of the customer?
-select *, rank() over(partition by userid order by created_date) as `rank` from sales
 
 
